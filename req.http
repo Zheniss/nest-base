@@ -1,0 +1,53 @@
+@host = http://0.0.0.0:3000
+
+### Root
+GET {{host}}/
+
+### Cats
+GET {{host}}/cats
+
+### Cats create
+POST {{host}}/cats
+Content-Type: application/json
+
+{
+    "name": "Aaaa",
+    "lastname": "Eeee"
+}
+
+### Cats by id
+GET {{host}}/cats/1
+
+### Photos
+GET {{host}}/photo
+
+### Users
+# @name create_user
+POST {{host}}/users
+Content-Type: application/json
+
+{
+    "name": "admin",
+    "password": "qwe123"
+}
+
+@user_id = {{create_user.response.body.id}}
+
+### 
+GET {{host}}/users/{{user_id}}
+
+### Auth
+POST {{host}}/auth
+# @name auth
+Content-Type: application/json
+
+{
+    "name": "admin",
+    "password": "qwe123"
+}
+
+@token = {{auth.response.body.token}}
+
+### Users all
+# @name all_users
+GET {{host}}/users
